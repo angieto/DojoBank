@@ -1,0 +1,8 @@
+@model BankAccounts.Models.LoginUser
+<form class="form-group mt-5 d-flex align-items-center flex-column justify-content-center" asp-action="Login" asp-controller="Home" method="post">
+    <span class="text-info mt-3" asp-validation-for="LogEmail"></span>
+    <input type="text" class="form-control col-8 mt-3" asp-for="LogEmail" placeholder="Email">
+    <span class="text-info mt-3" asp-validation-for="LogPassword"></span>
+    <input type="password" class="form-control col-8 mt-3" asp-for="LogPassword" placeholder="Password">
+    <button tyoe="submit" class="btn btn-light text-info mt-5">Sign in</button>
+</form>

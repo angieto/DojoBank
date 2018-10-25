@@ -1,0 +1,64 @@
+@model BankAccounts.Models.Transaction
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title>DojoBank</title>
+</head>
+<body>
+    <div class="container-fluid mb-5">
+        <!-- Navbar --> 
+       <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: teal;">
+            <a class="navbar-brand" href="#">DojoBank</a>
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <!-- Greeting -->
+                <li class="nav-item">
+                    <a class="nav-link">Hello @ViewBag.CurrentUser.FirstName</a>
+                </li>
+            </ul>
+            <div class="ml-auto">
+                <ul style="list-style-type: none;">
+                    <li class="nav-item float-right">
+                        <a class="nav-link text-white float-right" href="/logout">Log off</a>
+                    </li>
+                </ul>  
+            </div> 
+        </nav>
+        <div class="container mx-auto">
+            <form asp-action="AddTransaction" asp-controller="Home" method="post" class="form-group mt-5">
+                <label>Deposit/Withdraw: </label> <input type="number" asp-for="Amount">
+                <input type="hidden" asp-for="UserId" value="@ViewBag.currentUser.UserId">
+                <button type="submit" class="btn btn-info">Submit</button>
+            </form>
+        </div>
+        <div class="container mx-auto">
+            <h5>Current balance: </h5> <input type="text" value="@ViewBag.Sum">
+            <p class="text-danger">@ViewBag.ErrorMsg</p>
+        </div>
+        <table class="container table table-bordered mt-5 col-8">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var transaction in @ViewBag.AllTransactions) 
+                    {
+                        <tr>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.CreatedAt</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
